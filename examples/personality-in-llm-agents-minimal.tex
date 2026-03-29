@@ -1,0 +1,118 @@
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\title{Personality in LLM Agents}
+
+\author{Anonymous Author(s)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language model (LLM) agents are increasingly deployed as interactive assistants, simulators, and multi-agent collaborators, yet their behavioral style is often treated as a prompt-design detail rather than a first-class modeling variable. A growing body of work suggests that LLMs can express controllable personality traits, maintain trait-dependent interaction patterns, and exhibit personality-sensitive differences in downstream task behavior. This minimal draft frames personality in LLM agents as a research problem at the intersection of controllability, consistency, and utility. We summarize why personality matters for agent design, outline a trait-aware agent framework, and propose an evaluation plan covering trait fidelity, behavioral consistency, task effectiveness, and human perception. Because this example is a minimal ARR-style draft, all claims are kept conservative and unsupported empirical details are left as placeholders.
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Background}
+Recent LLM agents are expected not only to solve tasks, but also to interact in socially legible and behaviorally stable ways across extended conversations and multi-agent workflows. In practice, designers often describe these systems using terms such as \emph{helpful}, \emph{assertive}, \emph{empathetic}, or \emph{cautious}, which are closely related to personality-like behavioral regularities. This raises a concrete research question: can personality be treated as a measurable and controllable dimension in LLM agents rather than a vague stylistic prompt?
+
+The question is timely for at least two reasons. First, prior work suggests that LLM outputs can be measured and shaped along psychometric personality dimensions, especially in larger instruction-tuned models \cite{personalitytraitsllm2023}. Second, persona-conditioned LLMs and interacting LLM agents have shown recognizable trait patterns and non-trivial consistency effects in writing and dialogue tasks \cite{personallm2023,interaction2024}. These results suggest that personality may influence not only how an agent sounds, but also how it reasons, collaborates, and is perceived by users.
+
+\subsection{Motivation}
+Although recent studies indicate that LLMs can emulate or express personality-linked behaviors, several challenges remain. First, trait expression is not the same as robust agent-level personality: an agent may display a trait in isolated prompts yet fail to preserve it across interaction episodes. Second, even if trait conditioning is behaviorally consistent, it remains unclear when personality improves task performance versus merely changing style. Third, multi-agent settings introduce additional complexity because interaction dynamics such as linguistic accommodation or division of labor may alter apparent personality over time \cite{interaction2024}.
+
+These gaps motivate a more agent-centered view of personality in LLM systems. Instead of treating personality as a prompt decoration, we can study it as a structured design variable that affects single-agent decisions, multi-agent collaboration, and human judgments of coherence and usefulness.
+
+\subsection{Intuition and Contributions}
+This minimal draft adopts the following intuition: personality in LLM agents should be studied through three linked properties, namely \emph{trait fidelity}, \emph{interaction consistency}, and \emph{task utility}. Trait fidelity asks whether a prompted or conditioned agent exhibits the intended personality profile. Interaction consistency asks whether that profile remains stable across turns, partners, and tasks. Task utility asks whether specific personality settings improve outcomes in a target application.
+
+Based on this framing, the paper would make three contributions. First, it synthesizes prior evidence that LLM agents can display measurable and partially controllable personality traits \cite{personallm2023,personalitytraitsllm2023}. Second, it proposes a unified experimental lens for connecting personality expression to interactive agent behavior \cite{interaction2024,powerofpersonality2025}. Third, it outlines an evaluation protocol for future work on trait-aware agent design.
+
+\section{Related Work}
+
+\subsection{Personality Expression and Measurement in LLMs}
+One line of work studies whether LLMs can express interpretable personality traits and whether those traits can be measured using psychometric instruments or linguistic analysis. PersonaLLM shows that LLM-based personas can exhibit distinguishable Big Five profiles and recognizable linguistic patterns under personality conditioning \cite{personallm2023}. Personality Traits in Large Language Models further argues that personality in LLM outputs can be quantified and shaped, with stronger evidence in larger instruction-tuned models \cite{personalitytraitsllm2023}. Taken together, these studies suggest that personality is not purely metaphorical in LLM outputs, but they focus more on expression and measurement than on full agent behavior.
+
+\subsection{Personality in Interactive and Multi-Agent Settings}
+Another line of work studies personality under interaction. Frisch and Giulianelli examine persona-conditioned agents in collaborative writing and show that personality consistency and linguistic alignment both matter when LLM agents interact over time \cite{interaction2024}. More recently, The Power of Personality studies single- and multi-agent settings and reports that different personality assignments can affect reasoning and creative tasks as well as collective performance patterns \cite{powerofpersonality2025}. These works move closer to the agent setting we care about, but they still leave open how to connect trait fidelity, interaction stability, and downstream utility within one evaluation framework.
+
+\section{Method}
+
+\subsection{Problem Definition}
+We consider an LLM agent $a$ instantiated from a base model $M$, a system prompt $p$, optional memory state $m$, and a personality specification $z$. The personality specification may be given as a natural-language persona, a structured Big Five vector, or a small set of trait instructions. Given a context $x_t$ at turn $t$, the agent produces an action or response $y_t$.
+
+Our goal is to study how $z$ affects:
+\begin{enumerate}
+    \item trait fidelity: whether the agent behavior matches the intended profile,
+    \item interaction consistency: whether trait-linked behavior persists across contexts and partners,
+    \item task utility: whether specific personality settings improve task outcomes.
+\end{enumerate}
+
+\subsection{Trait-Aware Agent Framework}
+The proposed framework has three components.
+
+\paragraph{Personality specification.}
+Each agent receives an explicit trait profile, ideally aligned with a psychometric construct such as the Big Five. This keeps the personality variable interpretable and comparable across models and tasks.
+
+\paragraph{Behavioral probing.}
+The agent is evaluated with both direct probes, such as self-report or scenario judgments, and indirect probes, such as language style, decision patterns, and cooperation behavior. This reduces the risk of concluding that a trait exists merely because the model can restate a persona description.
+
+\paragraph{Task-grounded evaluation.}
+The agent is then tested in realistic tasks, such as collaborative writing, planning, or role-specialized multi-agent discussion. This allows us to distinguish personality that is merely expressive from personality that is functionally useful.
+
+\subsection{Evaluation Axes}
+We propose four evaluation axes:
+\begin{itemize}
+    \item \textbf{Trait fidelity:} alignment between intended and observed personality profile.
+    \item \textbf{Temporal consistency:} stability of the profile across turns and sessions.
+    \item \textbf{Social consistency:} stability under interaction with other agents or users.
+    \item \textbf{Task effectiveness:} impact on objective metrics and human preference.
+\end{itemize}
+
+\section{Experimental Setup}
+
+\subsection{Research Questions}
+This paper would center the following research questions:
+\begin{itemize}
+    \item \textbf{RQ1:} Can LLM agents reliably express target personality profiles?
+    \item \textbf{RQ2:} Do personality profiles remain consistent during interaction and collaboration?
+    \item \textbf{RQ3:} When does personality improve downstream agent performance or user experience?
+\end{itemize}
+
+\subsection{Candidate Tasks and Metrics}
+For RQ1, one can use psychometric inventories, human trait recognition, and linguistic markers. For RQ2, one can measure cross-turn stability, partner alignment, and profile drift during collaborative tasks. For RQ3, one can evaluate task success rate, plan quality, response preference, collaboration efficiency, or user trust, depending on the target application.
+
+% TODO: add concrete datasets, benchmark tasks, and metrics once the intended application domain is fixed.
+% TODO: add model list, decoding settings, and repetition protocol.
+
+\section{Results and Analysis}
+At minimum, the results section should distinguish three kinds of findings. First, it should report whether personality conditioning changes measured agent behavior in a statistically meaningful way. Second, it should analyze whether these changes persist under interaction rather than collapsing after a few turns. Third, it should test whether personality affects task quality positively, negatively, or in a task-dependent manner.
+
+For a first submission-quality study, a useful structure would be:
+\begin{itemize}
+    \item a main table comparing trait fidelity across models and personality settings,
+    \item an interaction-consistency table or figure over multi-turn collaborations,
+    \item a task-outcome table showing when trait-aware agents help or hurt.
+\end{itemize}
+
+Because this is a minimal draft, we intentionally do not claim any completed empirical improvements.
+
+\section{Conclusion}
+Personality in LLM agents is emerging as a concrete research topic rather than a superficial prompting choice. Prior work suggests that personality traits in LLM systems can be measured, manipulated, and observed in interactive settings, but the field still lacks a unified framework connecting personality expression, interaction consistency, and task utility. This minimal ARR-style draft argues that such a framework can help clarify when personality is a useful control knob for agent design and when it is merely stylistic variation.
+
+\section{Limitations}
+This draft is intentionally minimal and literature-grounded. It does not include new experiments, formal benchmark results, or a complete bibliography file. The framing is centered on Big Five-style personality constructs because that is where the current literature appears most developed; other theories of persona, role, identity, and social behavior may lead to different conclusions. In addition, this draft does not resolve the ethical question of whether stronger personality conditioning improves user trust by making agents more predictable or harms trust by encouraging over-anthropomorphism.
+
+\bibliography{personality-in-llm-agents-minimal}
+
+\end{document}

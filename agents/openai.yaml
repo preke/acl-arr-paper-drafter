@@ -1,0 +1,4 @@
+interface:
+  display_name: "ACL ARR Paper Drafter"
+  short_description: "Draft ARR LaTeX papers with deep research"
+  default_prompt: "Use the topic, materials, and deep research to draft an anonymized ACL ARR style LaTeX paper with the official template conventions."
