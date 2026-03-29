@@ -5,147 +5,209 @@ description: Draft an ACL ARR or EMNLP-submittable research paper in LaTeX from 
 
 # ACL ARR Paper Drafter
 
-Use this skill to generate a first-pass research paper in LaTeX for ACL ARR style workflows and conference commitments such as EMNLP. The draft must stay faithful to the available evidence, follow the user's XMind-derived paper outline, use the official ACL style files conventions, and honor ARR submission constraints described in [acl-arr-latex-guide.md](references/acl-arr-latex-guide.md).
+Use this skill to turn a research topic and a bundle of evidence into an anonymized ACL ARR style LaTeX first draft. Keep the user's original paper template, but upgrade the workflow with claim-driven planning, citation discipline, submission-aware drafting, and a clear paper narrative.
+
+Always consult:
+
+- [paper-template-outline.md](references/paper-template-outline.md)
+- [acl-arr-latex-guide.md](references/acl-arr-latex-guide.md)
+- [research-writing-patterns.md](references/research-writing-patterns.md)
+
+## Inputs
+
+Accept any mix of:
+
+- topic, tentative title, or problem statement
+- local `.pdf`, `.docx`, `.md`, `.txt`, images, notes, or existing drafts
+- links to papers, benchmarks, datasets, code, docs, or project pages
+- partial experiment tables, ablation notes, or bullet-point findings
+- explicit requests for deep web research
+
+Before drafting, classify the paper as one of:
+
+- result-backed paper
+- in-progress paper with incomplete experiments
+- proposal-style paper
+- literature-grounded concept paper
+
+This choice controls how strongly the draft can state claims.
 
 ## Workflow
 
-1. Read the request and identify:
-   - the topic, working title, or problem statement
-   - whether the paper is a completed study, an in-progress project, a proposal-like draft, or a literature-grounded concept paper
-   - which materials are available: PDFs, Word files, Markdown, notes, links, repos, datasets, benchmark pages, or prior drafts
-   - whether the user explicitly wants deep web research
-2. Build a source inventory before writing.
-   - Record each source and what it can support: background, motivation, method, experiment design, results, case studies, or citations.
-   - Separate direct evidence from assumptions.
-3. Read [paper-template-outline.md](references/paper-template-outline.md) and map the evidence into each paper section.
-4. Read [acl-arr-latex-guide.md](references/acl-arr-latex-guide.md) and prepare the LaTeX output shape accordingly.
-5. If the topic needs recent related work, benchmark information, or factual background, perform deep research:
-   - plan focused search queries around task, method family, datasets, benchmarks, and strongest baselines
-   - gather primary sources first
-   - extract only claims that can be traced back to sources
-   - keep a compact citation ledger for the draft
-6. Draft the paper in LaTeX section order:
-   - preamble and metadata
-   - abstract
-   - introduction
-   - related work
-   - method
-   - experiment settings
-   - result analysis
-   - conclusion
-   - limitations
-7. End with a short gap block in LaTeX comments if evidence is missing.
-   - Example: `% TODO: add numeric comparison table once experiment logs are available`
+### Phase 1: Build the Evidence Package
 
-## Input Handling
+1. Read the request and all supplied materials.
+2. Build a compact source inventory:
+   - source
+   - what it supports
+   - confidence level
+   - whether it is direct evidence or inference
+3. If local files are large, extract structured notes first rather than drafting from raw text.
 
-Accept mixed source packages:
+Default support buckets:
 
-- local files such as `.pdf`, `.docx`, `.md`, `.txt`, images, and extracted notes
-- links to papers, datasets, repos, benchmarks, docs, and project pages
-- raw bullet points or partially formed outlines
-- user instructions for additional deep research
+- problem motivation
+- method details
+- datasets and benchmarks
+- baselines
+- results
+- ablations
+- case studies
+- citations
 
-Inspect local files before drafting. For long materials, extract structured notes first instead of copying raw passages into the paper.
+### Phase 2: Freeze the Paper Story
 
-## Deep Research Mode
+Before writing any prose, derive:
 
-Use deep research whenever the user asks for web research, when the area is fast-moving, or when the materials do not sufficiently support related work and benchmark claims.
+- one-sentence paper thesis
+- one dominant contribution
+- optional supporting contribution
+- anti-claim to rule out
+- evidence status for each claim
+- paper narrative in one line: problem -> solution -> evidence
+
+Then write a compact claim-evidence matrix. Use the format from [research-writing-patterns.md](references/research-writing-patterns.md).
+
+Do not skip this step. It prevents narrative drift and overclaiming.
+
+### Phase 3: Map the XMind Template to the Current Paper
+
+Follow the paper logic in [paper-template-outline.md](references/paper-template-outline.md), but adapt each section to the actual evidence.
+
+Mandatory section flow:
+
+1. abstract
+2. introduction
+3. related work
+4. method
+5. experimental setup
+6. results and analysis
+7. conclusion
+8. limitations
+
+If the paper does not yet have completed results:
+
+- keep `Experimental Setup` concrete
+- write `Results and Analysis` as an evaluation plan plus expected analysis structure
+- never present planned experiments as finished evidence
+
+### Phase 4: Deep Research When Needed
+
+Use deep research whenever:
+
+- the user explicitly asks for it
+- related work is thin or outdated
+- benchmark or SOTA claims need grounding
+- a provided link or named paper needs verification
 
 Deep research should produce:
 
 - a short search plan
-- a source inventory with venue, year, and relevance
-- a distilled related-work taxonomy
-- citations or citation placeholders attached to concrete claims
+- a source inventory with year, venue, and relevance
+- a related-work taxonomy
+- concrete citation candidates attached to claims
 
-Prefer this order of evidence:
+Evidence priority:
 
-1. Official papers or publisher pages
-2. Official project, benchmark, or dataset pages
-3. Official repositories
-4. Other credible secondary summaries
+1. official papers and publisher pages
+2. official benchmark, dataset, or project pages
+3. official repositories
+4. credible secondary summaries
 
-Do not let deep research turn into an ungrounded literature dump. Keep only the sources that materially strengthen the draft.
+Do not let research sprawl. Keep only sources that materially improve the paper.
 
-## Drafting Rules
+### Phase 5: Draft in ACL ARR Style
 
-- Follow the section logic in [paper-template-outline.md](references/paper-template-outline.md) unless the user explicitly requests a different venue structure.
-- Emit LaTeX, not Markdown, as the primary output.
-- Use ACL-style sectioning and preamble conventions from [acl-arr-latex-guide.md](references/acl-arr-latex-guide.md).
-- Follow the official `acl-org/acl-style-files` template conventions rather than an improvised ACL-like preamble.
-- Default to anonymous review format with `\\usepackage[review]{acl}` unless the user explicitly asks for a camera-ready or non-anonymous draft.
-- Respect ARR length expectations:
-  - long paper: up to 8 pages of main content
-  - short paper: up to 4 pages of main content
-  - unlimited references
-  - limitations section required after the conclusion material
-- Preserve the user's terminology for task setting, method name, and key concepts unless it is clearly inconsistent.
-- Distinguish completed findings from planned evaluation.
-- If results exist, phrase claims conservatively and ground them in the provided evidence.
-- If results do not exist, write experiment sections as evaluation design or intended analysis, not as completed achievements.
-- Do not fabricate citations, numbers, baselines, datasets, ablations, or case-study outcomes.
-- If specific citations are unavailable, insert explicit placeholders such as `\\cite{TODO}` or LaTeX comments only when the user prefers placeholders over prose notes.
-- Preserve two-way anonymization:
-  - omit author names and affiliations by default
-  - avoid self-references that reveal identity
-  - avoid deanonymizing repository links or supplemental references
-- Include a `Limitations` section by default because ARR submission requirements make it mandatory.
+Use the official ACL style conventions from [acl-arr-latex-guide.md](references/acl-arr-latex-guide.md).
 
-## Web Research Rules
+Default drafting rules:
 
-Browse when:
+- emit LaTeX, not Markdown
+- use `\documentclass[11pt]{article}`
+- default to `\usepackage[review]{acl}`
+- keep the draft anonymous unless the user asks otherwise
+- include `\section{Limitations}` by default
+- target ARR-style review drafts before camera-ready formatting
 
-- the user asks for deep research or web search
-- the topic depends on recent literature or rapidly changing baselines
-- a related-work claim needs source attribution
-- a provided link, benchmark, dataset, or model must be verified
+For the content itself:
 
-When browsing:
+- introduction must cover problem, importance, gap, method intuition, and contributions
+- related work must synthesize categories, not just list papers
+- method must define inputs, outputs, assumptions, and core modules clearly
+- experiment sections must distinguish completed evidence from planned evaluation
+- results must stay proportional to the evidence
+- every major section should advance the same narrative arc rather than introducing a new story
 
-- prefer primary sources such as official project pages, arXiv pages, publisher pages, benchmark pages, and official repositories
-- compare multiple recent sources before making SOTA-style claims
-- mark inferences that are not directly stated by a source
-- keep claim strength proportional to source quality
-- prefer refereed versions over preprints when a preprint has been superseded
+### Phase 6: Produce the Drafting Package
 
-## Output Format
+Unless the user asks for only raw body text, produce:
 
-Return a compilable LaTeX draft skeleton with:
+1. a source inventory
+2. a claim-evidence matrix
+3. a citation plan
+4. a compilable LaTeX draft
+5. an `Open Gaps` list or LaTeX TODO comments
 
-1. `\\documentclass[11pt]{article}`
-2. `\\usepackage[review]{acl}` unless the user requests a different submission mode
-3. ACL-style package usage and basic preamble aligned with the official style files
-4. anonymous title and author block placeholders when author data is missing
-5. `abstract` environment
-5. `\\section{Introduction}`
-6. `\\section{Related Work}`
-7. `\\section{Method}`
-8. `\\section{Experimental Setup}`
-9. `\\section{Results and Analysis}`
-10. `\\section{Conclusion}`
-11. `\\section{Limitations}`
-12. bibliography placeholders or comments when references are incomplete
+If the user asks for files, prefer this structure:
 
-If the user wants only paper body text, still organize the content so it can be pasted directly into the ACL template.
+```text
+paper/
+  main.tex
+  references.bib
+  sections/
+```
 
-## Evidence Discipline
+If the user asks for chat-only output, keep the same logical package in the response.
+
+## Citation Discipline
+
+Never fabricate citations.
+
+When adding references:
+
+- prefer DBLP, Crossref, ACL Anthology, publisher pages, or arXiv pages
+- prefer published venue versions over older preprints when appropriate
+- attach citations only to claims actually supported by the cited source
+- if a citation is still uncertain, use a visible placeholder rather than inventing metadata
+
+## ARR Constraints
+
+Respect these defaults unless the user explicitly requests another mode:
+
+- long paper: up to 8 pages of main content
+- short paper: up to 4 pages of main content
+- unlimited references
+- two-way anonymized review
+- limitations section required
+
+## Quality Bar
 
 Before finalizing, verify:
 
-- every major section is drafted or explicitly marked pending
-- no factual claim exceeds the evidence
+- every major section is drafted or intentionally marked pending
+- every core claim maps to evidence
 - no numerical result appears without support
-- the introduction covers problem, importance, limitations of prior work, intuition, and contributions
-- the result-analysis section clearly distinguishes real results from planned analyses
-- the LaTeX structure matches the official ACL style files closely enough to drop into an ARR workflow
-- the draft is anonymized unless the user asked otherwise
-- a limitations section is present
-- the paper length target is consistent with long or short submission mode
+- no related-work statement overclaims the literature
+- the introduction and conclusion tell the same central story
+- the abstract, introduction, method, and conclusion all agree on the same problem -> solution -> evidence arc
+- each major section passes the section-level checks in [research-writing-patterns.md](references/research-writing-patterns.md)
+- the draft could be pasted into an ACL ARR workflow without major structural fixes
 
-## References
+## Failure Modes To Avoid
 
-Always consult:
+- generic abstract with no concrete problem or evidence
+- related work as a paper list instead of a synthesis
+- method section that only renames a module
+- results phrased as completed achievements when only plans exist
+- deanonymizing self-citations or links
+- fake baselines, fake citations, fake numbers, fake ablations
 
-- [paper-template-outline.md](references/paper-template-outline.md) for the XMind-derived paper logic
-- [acl-arr-latex-guide.md](references/acl-arr-latex-guide.md) for ACL-style LaTeX conventions
+## Output Modes
+
+Pick the smallest mode that satisfies the user:
+
+- `chat-only draft`: return LaTeX in the response
+- `single-file draft`: write one `.tex` file
+- `paper folder`: write `main.tex`, `references.bib`, and section files
+
+If the user does not specify, default to a single compilable LaTeX draft plus a compact claim-evidence matrix.

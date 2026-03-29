@@ -13,6 +13,8 @@ It is designed for research workflows where the user may provide:
 
 The skill reads those materials, follows a paper template derived from an XMind outline, applies the official ACL style conventions, and produces a first-pass LaTeX draft without fabricating unsupported results or citations.
 
+It also incorporates claim-driven paper planning patterns inspired by local research-writing skills: claim-evidence mapping, citation planning, submission-aware drafting, explicit open-gap reporting, and a problem -> solution -> evidence narrative arc.
+
 ## What It Does
 
 - Drafts ACL ARR or EMNLP-submittable LaTeX paper skeletons
@@ -20,6 +22,9 @@ The skill reads those materials, follows a paper template derived from an XMind 
 - Defaults to anonymized review format
 - Includes a required `Limitations` section
 - Supports deep research for related work and factual grounding
+- Builds a claim-evidence matrix before drafting
+- Freezes a paper narrative before prose drafting
+- Produces a compact citation plan and source inventory
 - Keeps unsupported claims as placeholders or TODO comments instead of inventing content
 
 ## Repository Structure
@@ -28,7 +33,8 @@ The skill reads those materials, follows a paper template derived from an XMind 
 - `agents/openai.yaml`: UI-facing metadata
 - `references/paper-template-outline.md`: XMind-derived paper structure
 - `references/acl-arr-latex-guide.md`: ACL ARR formatting guidance
-- `examples/`: minimal working example, PDF, `.bib`, and local ACL style files for compilation
+- `references/research-writing-patterns.md`: distilled paper-writing patterns from the local skill library
+- `examples/`: minimal working example, `.tex`, and `.bib`
 
 ## Install
 
@@ -68,6 +74,7 @@ Materials:
 Requirements:
 - use deep research for recent related work
 - follow the official ACL style files
+- build a claim-evidence matrix before writing
 - keep unsupported experimental claims as TODO comments
 ```
 
