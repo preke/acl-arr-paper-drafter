@@ -70,6 +70,15 @@ Then write a compact claim-evidence matrix. Use the format from [research-writin
 
 Do not skip this step. It prevents narrative drift and overclaiming.
 
+For ACL ARR / EMNLP style empirical papers, prefer a paper story with this shape:
+
+- identify an important but under-evaluated blind spot, failure mode, or capability gap
+- operationalize it with a benchmark, task protocol, taxonomy, or analysis framework
+- run systematic evaluation before claiming a fix
+- if a mitigation exists, present it as a simple, proportional extension rather than the entire paper identity
+
+Avoid paper stories that are only "we built a framework" or only "we improved a metric" without a sharply defined gap.
+
 ### Phase 3: Map the XMind Template to the Current Paper
 
 Follow the paper logic in [paper-template-outline.md](references/paper-template-outline.md), but adapt each section to the actual evidence.
@@ -137,6 +146,7 @@ For the content itself:
 - experiment sections must distinguish completed evidence from planned evaluation
 - results must stay proportional to the evidence
 - every major section should advance the same narrative arc rather than introducing a new story
+- for empirical NLP papers, title, abstract, introduction, and experiment order should follow the reusable templates in [research-writing-patterns.md](references/research-writing-patterns.md)
 
 ### Phase 6: Produce the Drafting Package
 
